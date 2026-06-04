@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Skor SPMB Jabar - Jalur Prestasi</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background-color: #3498db; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+        .result { margin-top: 20px; padding: 15px; background: #e8f4f8; border-left: 5px solid #3498db; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Simulasi Skor Jalur Nilai Rapor SMA</h2>
+    <div class="form-group">
+        <label for="rapor">Rata-rata Nilai Rapor (Semester 1, 10 Mapel kecuali B.Sunda):</label>
+        <input type="number" id="rapor1" placeholder="Contoh: 85.5" step="0.01" min="0" max="100">
+    </div>
+	<div class="form-group">
+        <label for="rapor">Rata-rata Nilai Rapor (Semester 2, 10 Mapel kecuali B.Sunda):</label>
+        <input type="number" id="rapor2" placeholder="Contoh: 85.5" step="0.01" min="0" max="100">
+    </div>
+	<div class="form-group">
+        <label for="rapor">Rata-rata Nilai Rapor (Semester 3, 10 Mapel kecuali B.Sunda):</label>
+        <input type="number" id="rapor3" placeholder="Contoh: 85.5" step="0.01" min="0" max="100">
+    </div>
+	<div class="form-group">
+        <label for="rapor">Rata-rata Nilai Rapor (Semester 4, 10 Mapel kecuali B.Sunda):</label>
+        <input type="number" id="rapor4" placeholder="Contoh: 85.5" step="0.01" min="0" max="100">
+    </div>
+	<div class="form-group">
+        <label for="rapor">Rata-rata Nilai Rapor (Semester 5, 10 Mapel kecuali B.Sunda):</label>
+        <input type="number" id="rapor5" placeholder="Contoh: 85.5" step="0.01" min="0" max="100">
+    </div>
+    <div class="form-group">
+        <label for="tka">Skor TKA (Tes Kompetensi Akademik, Mtk+B.Indo):</label>
+        <input type="number" id="tka" placeholder="Contoh: 120" step="1">
+    </div>
+    <button onclick="hitungSkor()">Hitung Skor Akhir</button>
+    
+    <div class="result" id="hasil" style="display:none;"></div>
+</div>
+
+<script>
+    function hitungSkor() {
+        let rapor1 = parseFloat(document.getElementById('rapor1').value);
+		let rapor2 = parseFloat(document.getElementById('rapor2').value);
+		let rapor3 = parseFloat(document.getElementById('rapor3').value);
+		let rapor4 = parseFloat(document.getElementById('rapor4').value);
+		let rapor5 = parseFloat(document.getElementById('rapor5').value);
+        let tka = parseFloat(document.getElementById('tka').value);
+
+        if (isNaN(rapor1) || isNaN(rapor2) || isNaN(rapor3) || isNaN(rapor4) || isNaN(rapor5) || isNaN(tka)) {
+            alert("Harap isi semua kolom dengan benar!");
+            return;
+        }
+
+        // Catatan: Jika skala TKA Anda 0-100, gunakan baris TKA di bawah ini apa adanya.
+        // Jika skala TKA SMA adalah 200-800, sesuaikan atau konversi terlebih dahulu.
+        
+        let nilaiRaporBobot = (rapor1+rapor2+rapor3+rapor4+rapor5)*0.50;
+        let nilaiTkaBobot = tka * 0.50;
+        let skorAkhir = nilaiRaporBobot + nilaiTkaBobot;
+
+        let hasilDiv = document.getElementById('hasil');
+        hasilDiv.style.display = 'block';
+        hasilDiv.innerHTML = `<strong>Skor Akhir Anda: ${skorAkhir.toFixed(2)}</strong><br>
+                              <small>(Rapor: ${nilaiRaporBobot.toFixed(2)} + TKA: ${nilaiTkaBobot.toFixed(2)})</small>`;
+    }
+</script>
+
+</body>
+</html>
